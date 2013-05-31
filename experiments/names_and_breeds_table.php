@@ -3,7 +3,8 @@
     //$record = $data->table1[0]->Detail_Collection[0]->Detail['Breed'];
     $records = $data->table1[0]->Detail_Collection[0];
     //echo $data->table1[0]->Detail_Collection[0]->Detail['Breed'];
-    echo "Total records: ".count($records);
+    $totaldogs = count($records);
+    echo "Total records: $totaldogs";
 
     // Count dog breeds
     $breeds = array();
@@ -35,12 +36,25 @@
     echo "<br>-------<br>";
 
     echo "Gender counts: <br />";
-    print_r(array_count_values($gender));
+    $gender_count = array_count_values($gender);
+    print_r($gender_count);
+/*
+    $totalmale = count($gender['MALE']) + count($gender['DESEXED MALE']);
+    echo "<br>Total Male: ".$totalmale." (".$totalmale/$totaldogs*100.") (Desexed: ".;
+*/
+    $desexed = $gender_count['DESEXED MALE'] + $gender_count['DESEXED FEMALE'];
+    echo "<b>Desexed: ".round($desexed / $totaldogs * 100, 0) . "%</b>";
+
     echo "<br>-------<br>";
 
 
     echo "Class counts: <br />";
-    print_r(array_count_values($class));
+    $class_count = array_count_values($class);
+    print_r($class_count);
+
+    $microchipped = $class_count['FULL DESEX MICRO OBED'] + $class_count['FULL DESEX MICRO'] + $class_count['PENSION DESEX MICRO OBED'] + $class_count['PENSION DESEX MICRO'] + $class_count['FULL MICRO'] + $class_count['FULL MICRO OBED'] + $class_count['PENSION MICRO'];
+    echo "<b>Microchipped: ".round($microchipped / $totaldogs * 100, 0) . "%</b>";
+
     echo "<br>-------<br>";
 
     echo "Name counts: <br />";
